@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/userpage.css">
+    <link rel="stylesheet" href="../js/layui/css/layui.css">
+    <link rel="stylesheet" href="../tavel-font/iconfont.css">
+    <script src="../js/jquery/jquery-3.5.1.min.js"></script>
+    <script src="../tavel-font/iconfont.js"></script>
+    <script src="../js/vue.js"></script>
+    <title>旅游网首页</title>
+</head>
+<body>
+<div id="upage">
+    <!-- 头 -->
+    <div class="header">
+        <!-- 湘信游 -->
+        <div class="sign">
+            <a href="userpage.html"></a>
+        </div>
+
+        <!-- 导航栏选择 -->
+        <ul class="hselect">
+            <li style="background-color: rgb(238, 175, 57);"><a href="#">首页</a></li>
+            <li id="provinl"><a href="#">目的省份</a><i class="layui-icon layui-icon-triangle-d"></i></li>
+            <li><a href="#">旅游攻略</a></li>
+        </ul>
+
+        <div class="provinselect">
+            <div>
+                <a href="../viewspot/spotshow.html?id=1"><span class="iconfont icon-hunansheng"></span><br>湖南省</a>
+            </div>
+            <div><a href="#"><span class="iconfont icon-hebeisheng"></span><br>河北省</a></div>
+            <div><a href="#"><span class="iconfont icon-shanxisheng"></span><br>山西省</a></div>
+            <div><a href="#"><span class="iconfont icon-liaoning"></span><br>辽宁省</a></div>
+            <div><a href="#"><span class="iconfont icon-heilongjiang"></span><br>吉林省</a> </div>
+            <div><a href="#"><span class="iconfont icon-heilongjiangsheng"></span><br>黑龙江省</a></div>
+            <div><a href="#"><span class="iconfont icon-jiangsusheng"></span><br>江苏省</a> </div>
+            <div><a href="#"><span class="iconfont icon-zhejiangsheng"></span><br>浙江省</a> </div>
+            <div><a href="#"><span class="iconfont icon-anhui"></span><br>安徽省</a> </div>
+            <div><a href="#"><span class="iconfont icon-fujiansheng"></span><br>福建省</a> </div>
+            <div><a href="#"><span class="iconfont icon-jiangxisheng"></span><br>江西省</a> </div>
+            <div><a href="#"><span class="iconfont icon-shandongsheng"></span><br>山东省</a> </div>
+            <div><a href="#"><span class="iconfont icon-henansheng"></span><br>河南省</a> </div>
+            <div><a href="#"><span class="iconfont icon-hubeisheng"></span><br>湖北省</a> </div>
+            <div><a href="#"><span class="iconfont icon-guangdongsheng"></span><br>广东省</a> </div>
+            <div><a href="#"><span class="iconfont icon-hainansheng"></span><br>海南省</a> </div>
+            <div><a href="#"><span class="iconfont icon-sichuansheng"></span><br>四川省</a> </div>
+            <div><a href="#"><span class="iconfont icon-guizhousheng"></span><br>贵州省</a> </div>
+            <div><a href="../viewspot/spotshow.html?id=19"><span class="iconfont icon-yunnansheng"></span><br>云南省</a> </div>
+            <div><a href="#"><span class="iconfont icon-shanxisheng"></span><br>陕西省</a> </div>
+            <div><a href="#"><span class="iconfont icon-gansusheng"></span><br>甘肃省</a> </div>
+            <div><a href="#"><span class="iconfont icon-qinghaisheng"></span><br>青海省</a> </div>
+            <div><a href="#"><span class="iconfont icon-taiwansheng"></span><br>台湾省</a> </div>
+            <div><a href="#"><span class="iconfont icon-neimengguzizhiqu"></span><br>内蒙古自治区</a> </div>
+            <div><a href="#"><span class="iconfont icon-guangxizizhiqu"></span><br>广西壮族自治区</a></div>
+            <div><a href="../viewspot/spotshow.html?id=26"><span class="iconfont icon-xicangzizhiqu"></span><br>西藏自治区</a></div>
+            <div><a href="#"><span class="iconfont icon-xinjiangzizhiqu"></span><br>新疆维吾尔自治区</a> </div>
+            <div><a href="#"><span class="iconfont icon-beijingshi"></span><br>北京市</a> </div>
+            <div><a href="#"><span class="iconfont icon-tianjinshi"></span><br>天津市</a> </div>
+            <div><a href="#"><span class="iconfont icon-shanghai"></span><br>上海市</a> </div>
+            <div><a href="#"><span class="iconfont icon-zhongqingshi"></span><br>重庆市</a> </div>
+        </div>
+
+        <!-- 日历气候公告 -->
+        <div class="news">
+            <h1 style="background-color: rgb(218, 153, 34); color: black;">2021年</h1>
+            <h2 style="background-color: rgb(240, 203, 134); color: black;">6月12日</h2>
+            <h3 style="background-color: rgba(243, 224, 190, 0.986); color: black;">五月初三 甲午月 辛卯日</h3>
+            <br>
+            <b style="background-color: palegreen;">宜</b> <p style="border: 2px solid palegreen; border-radius: 8px;">搬家 结婚 领证 订婚 作灶 入学 求嗣 祈福 祭祀</p>
+            <b style="background-color: rgba(206, 80, 80, 0.733);">忌</b> <p style="border: 2px solid rgba(206, 80, 80, 0.733); border-radius: 8px;">装修 开业 入宅 开工 动土 安床 出行 安葬 上梁</p>
+            <br>
+            <strong style="color: red;">公告:</strong> <p v-text="ptext"></p>
+            <br>
+            <strong style="color: red;">热线电话:</strong> <br><a href="#">0731-884976</a>
+        </div>
+
+        <!-- 登录注册/个人信息 -->
+        <div class="login">
+            <div class="denglu" v-if="!isuser">
+                <div class="deng1">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-QQ"></use>
+                    </svg>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-shouji"></use>
+                    </svg>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-weixin"></use>
+                    </svg>
+                </div>
+                <div class="deng2">
+                    <a href="../login.html">登录</a>
+
+                    / <a href="../regist.html"> 注册</a>
+                </div>
+            </div>
+
+            <div class="wellcome" v-if="isuser">
+                欢迎 {{user.uname}}
+                <a href="myself.html"><i class="layui-icon layui-icon-username">个人中心</i></a>
+                <a href="../login.html"><i class="layui-icon layui-icon-logout">退出</i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 轮播图 -->
+    <div style="margin:0 auto" class="layui-carousel" id="test1">
+        <!-- 搜索框 -->
+        <div style="text-align: center; z-index: 10; width: 500px; height: 100px; background: rgba(0,0,0,0.4); position: absolute; left: 250px; top: 60px; border-radius: 10px;">
+            <h2 style="margin-top: 5px; color: white; opacity: 100%; margin-bottom: 5px;">您想去哪儿？</h2>
+            <input v-model="anywhere" @keyup="selectframe" placeholder="景点名/目的地/省份" style="padding-left: 10px; width: 300px; height: 32px; border-radius: 4px; border:none" type="text">
+            <button style="border-radius: 5px;background-color: rgb(25, 192, 214); width: 50px; height: 33px; margin-left: 5px; color: white; border:none;cursor: pointer;"><i class="layui-icon layui-icon-search"></i> </button>
+            <div v-show="isshow" style="width: 306px; height: 230px; border: 2px solid #e9aa37;margin-left: 65px;background-color: rgba(255,255,255,0.86);border-radius: 5px">
+                <ul style="list-style: none;text-align: left;font-size: medium;line-height: 20px;">
+                    <li v-for="place in spotname"><a :href="'../strategy/spotstrategy.html?sid='+place.sid">{{place.sname}}</a></li>
+                </ul>
+            </div>
+        </div>
+        <div carousel-item>
+            <div style="background-image: url(../img/up1.png); background-size: cover;"></div>
+            <div style="background-image: url(../img/up2.png); background-size: cover;"></div>
+            <div style="background-image: url(../img/up3.png); background-size: cover;"></div>
+            <div style="background-image: url(../img/up4.png); background-size: cover;"></div>
+        </div>
+    </div>
+
+    <!-- 关于我们 -->
+    <div class="aboutus">
+        <h3>湘信游APP下载</h3>
+        <img src="../img/app.png" alt="app下载" title="app下载"><br>
+
+        <h3>湘信游公众号订阅</h3>
+        <img src="../img/public.png" alt="公众号订阅" title="公众号订阅">
+        <br>
+        <br>
+        <a href="#">关于我们</a> <br>
+        <a href="#">联系我们</a><br>
+        <a href="#">隐私政策</a> <br>
+        <a href="#">商标声明</a><br>
+        <a href="#">服务协议</a> <br>
+        <a href="#">关于湘信游</a><br>
+        <a href="#">商城平台服务协议</a> <br>
+        <a href="#">湘信游网服务监督员</a> <br>
+        <a href="#">网站地图加入湘信游</a> <br>
+        <a href="#">网络信息侵权通知指引</a> <br>
+    </div>
+
+    <!-- 景点推荐 -->
+    <div class="rank1">
+        <h1>猜您可能会喜欢的景点:</h1>
+        <div class="slike" v-for="remd in remds">
+            <img style="width: 100%; height: 100px; border:none;" :src="remd.spicture" alt="">
+
+            <h4 style="margin-bottom: 5px; margin-top: 3px; color: black;">{{remd.sname}}</h4>
+            <b>类型:</b><span style="color: black;">{{remd.lname}}</span>
+            &nbsp;&nbsp;
+            <b>级别:</b><span style="color: black;">{{remd.level}}</span><br>
+            <hr style="border: 1px solid rgb(233, 170, 55); background-color: rgb(233, 170, 55);"/>
+
+            <i class="layui-icon layui-icon-praise"></i> 点赞
+            <i @click="collect(remd.sname)" class="layui-icon layui-icon-star"></i> 收藏
+        </div>
+    </div>
+
+    <!-- 热门景点 -->
+    <div class="rank2">
+        <h1 style="text-align: center;margin-bottom: 10px;">季节热门景点:</h1>
+        <div class="hot" v-for="rankspot in rankspots">
+            <img :src="rankspot.spicture" alt="">
+            <div>
+                <span>{{rankspot.sname}}</span>
+                <b>{{rankspot.pname}} | {{rankspot.level}}</b>
+                <p>{{rankspot.sdescription}}</p>
+                <i style="margin-left: 140px; color: red;" class="layui-icon layui-icon-fire">火</i>
+                <i @click="collect(rankspot.sname)" class="layui-icon layui-icon-star">收藏</i>
+                <i class="layui-icon layui-icon-release">分享</i>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../js/layui/layui.js"></script>
+<script>
+    layui.use('carousel', function(){
+        var carousel = layui.carousel;
+        //建造实例
+        carousel.render({
+            elem: '#test1'
+            ,height: '400px'
+            ,width: '1000px' //设置容器宽度
+            ,arrow: 'hover' //始终显示箭头
+            ,anim: 'fade' //切换动画方式
+            ,interval: '3000'
+        });
+    });
+</script>
+<script src="../js/axios.min.js"></script>
+<script>
+    axios.defaults.withCredentials = true
+    const upage=new Vue({
+        el:"#upage",
+        data:{
+            isuser:true,
+            user:{},
+            id:"",
+            ptext:"6月气候炎热谨防中暑，出门请配备好防晒霜以免晒伤，出行注意安全！祝您旅行愉快！",
+            remds:[],
+            rankspots:[],
+            isshow:false,
+            anywhere:"",
+            spotname:[]
+        },
+        methods:{
+            selectframe(){
+                if(this.anywhere!=""){
+                    this.isshow=true;
+                    axios.get("http://localhost:8989/place/findsname?sname="+this.anywhere).then((res)=>{
+                        this.spotname=res.data;
+                        console.log(this.spotname);
+                    });
+                }else{
+                    this.spotname="";
+                    this.isshow=false;
+                }
+            },
+            collect(sname){
+                if(this.id!=""){
+                    axios.post("http://localhost:8989/place/collect?id="+this.id+"&sname="+sname).then((res)=>{
+                        alert(res.data.msg);
+                    }).catch(function (err) {
+                        alert("收藏失败");
+                    });
+                }else{
+                    alert("若想收藏请登录!");
+                }
+
+            },
+            finduser(){
+                this.id=localStorage.getItem("userid");
+                axios.get("http://localhost:8989/user/findOne?id="+this.id).then((res)=>{
+                    this.user=res.data;
+                });
+            },
+            getNews(){
+                axios.get("http://localhost:8989/publicInfo/news").then((res)=>{
+                    if(res.data!=""){
+                        this.ptext =res.data;
+                    }
+                }).catch(function(err){
+                    console.log("公告无更新");
+                });
+            },
+            getRecommendlist(){
+                axios.get("http://localhost:8989/place/remd?id="+localStorage.getItem("userid")).then((res)=>{
+                    this.remds=res.data;
+                });
+            },
+            getRankspot(){
+                axios.get("http://localhost:8989/place/rank4").then((res)=>{
+                    this.rankspots=res.data;
+                });
+            }
+
+        },
+        created(){
+            // 如果是登录的用户就显示首页全部信息
+            if(localStorage.getItem("userid")==null){
+                this.isuser=!this.isuser;
+            }else{
+                this.finduser();
+                this.getRecommendlist();
+            }
+            //没有登录就只有景点排名信息
+            this.getNews();
+            this.getRankspot();
+        }
+    })
+</script>
+<script>
+    $(function(){
+        let pl=$('.provinselect');
+        pl.hide();
+        $('#provinl').mouseover(function(){
+            pl.slideDown(500);
+        });
+
+        pl.mousemove(function(){
+            pl.show();
+        });
+        pl.mouseleave(function(){
+            pl.fadeOut(500);
+        });
+    });
+</script>
+</html>

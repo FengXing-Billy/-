@@ -1,0 +1,31 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    background: #eee;
+    padding-top: 10px;
+}
+#header,#footer{
+    color:#fff;
+    font-size:12px;
+}
+#header{
+    height: 70px;
+    padding-top: 1px;
+    text-align: center;
+    background: #5ea896;
+}
+#header-bar{
+    background: linear-gradient(gray,#fff);
+    height: 6px;
+    position: relative;
+    z-index: 9999;
+}
+#content{
+    padding: 8px 20px;
+    background: #fff;
+    color: #666666;
+}
+#content h2{
+    color:#74A8F5;
+}

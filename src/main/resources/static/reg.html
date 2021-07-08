@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册页面</title>
+    <link rel="stylesheet" href="css/regist.css">
+    <script src="js/jquery/jquery-3.5.1.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+</head>
+<body>
+<div class="bgp" id="app">
+    <div class="registSection">
+        <!-- 湖南信息学院校徽 -->
+        <div class="re-top"></div>
+        <!-- 注册部分 -->
+        <form class="re-center" action="#">
+
+            <!-- 用户名 -->
+            <label>用户名:</label>
+            <input @blur="ublur" id="input1" type="text" v-model="user.uname" placeholder="用户名数字和字母组合">
+            <p v-text="uinputnull" class="yan"></p>
+
+            <!-- 密码 -->
+            <label>密&nbsp&nbsp&nbsp码:</label>
+            <input @blur="pblur" id="input2" type="password" v-model="user.upassword" placeholder="请设置密码">
+            <p v-text="pinputnull" class="yan"></p>
+
+            <!-- 确认密码 -->
+            <label>确认密码:</label>
+            <input @blur="repblur" v-model="repinput" id="input3" type="password" name="repassword" placeholder="请在此输入密码确认">
+            <p v-text="repinputnull" class="yan">确认密码不能为空！</p>
+
+            <!-- 所在省份 -->
+            <label>所在省份:</label>
+            <select v-model="user.uwhere" id="">
+                <option  v-for="province1,index in province" :value="province1">{{province1}}</option>
+            </select><br><br>
+
+            <!-- 喜爱景区类型 -->
+            <label>喜爱景区类型:</label>
+            <div class="ulikecss">
+                自然景区<input v-model="mulike" type="checkbox" name="lname" value="自然景区">
+                文化景区<input v-model="mulike" type="checkbox" name="lname" value="文化景区"><br><br>
+                历史景区<input v-model="mulike" type="checkbox" name="lname" value="历史景区">
+                娱乐景区<input v-model="mulike" type="checkbox" name="lname" value="娱乐景区">
+            </div><br>
+
+            <input @click="upost" id="inputb" type="button" value="注册">
+        </form>
+        <p>已有账号? 点击<a href="login.html">账号登录</a></p>
+    </div>
+</div>
+</body>
+
+<!-- VUE数据处理 -->
+<script>
+    var app=new Vue({
+        el:"#app",
+        data:{
+            mulike:[],
+            user:{uname:"",upassword:"",uwhere:"",ulike:[]},
+            uinputnull:"",
+            pinputnull:"",
+            repinput:"",
+            repinputnull:"",
+            province:[
+                "湖南省","河北省","山西省","辽宁省","吉林省","黑龙江省","江苏省","浙江省",
+                "安徽省","福建省","江西省","山东省","河南省","湖北省","广东省","海南省",
+                "四川省","贵州省","云南省","陕西省","甘肃省","青海省","台湾省","内蒙古自治区",
+                "广西壮族自治区","西藏自治区","宁夏回族自治区","新疆维吾尔自治区","北京市","天津市","上海市","重庆市"
+            ]
+        },
+        methods:{
+            // 用正则表达式判断用户名格式
+            ublur(){
+                const uzhengze=/^[a-zA-Z0-9_-]{4,16}$/;
+                if(this.user.uname==""){
+                    this.uinputnull="用户名不能为空！";
+                }
+                else if(uzhengze.test(this.user.uname)){
+                    this.uinputnull="";
+                }else{
+                    this.uinputnull="用户名格式不正确！";
+                }
+            },
+
+            // 用正则表达式判断密码格式,并在输入完确认密码后回改密码判断密码一致性
+            pblur(){
+                const pzhengze=/^\d{6,11}$/;
+                if(this.repinput==""){
+                    if(this.user.upassword==""){
+                        this.pinputnull="密码不能为空！";
+                    }
+                    else if(pzhengze.test(this.user.upassword)){
+                        this.pinputnull="";
+                    }else{
+                        this.pinputnull="密码格式不正确！";
+                    }
+                }else{
+                    if(this.repinput!=this.user.upassword){
+                        this.repinputnull="前后密码不一致！"
+                    }else{
+                        this.repinputnull=""
+                    }
+
+                    if(this.user.upassword==""){
+                        this.pinputnull="密码不能为空！";
+                    }
+                    else if(pzhengze.test(this.user.upassword)){
+                        this.pinputnull="";
+                    }else{
+                        this.pinputnull="密码格式不正确！";
+                    }
+                }
+            },
+
+            //再次确认密码
+            repblur(){
+                if(this.repinput==""){
+                    this.repinputnull="确认密码不能为空！";
+                }
+                else if(this.repinput==this.user.upassword){
+                    this.repinputnull="";
+                }else{
+                    this.repinputnull="前后密码不一致！";
+                }
+            },
+
+            // 提交事件
+            upost(){
+                if(!(!this.uinputnull&&!this.pinputnull&&!this.repinputnull&&this.user.uwhere)){
+                    alert("注册信息填写不完整!");
+                }else{
+                    //发送axios
+                    this.user.ulike=this.mulike.toString();
+                    axios.post("http://localhost:8989/user/register",
+                        this.user).then((res)=>{
+                        if(res.data.state){
+                            alert(res.data.msg+",注册成功转到登录页面!!!");
+                            location.href='./login.html';
+                        }else{
+                            alert(res.data.msg);
+                        }
+                    });
+                }
+
+            }
+        }
+    })
+</script>
+
+<!-- jquery样式 -->
+<script type="text/javascript">
+    // jquer样式
+    $(function(){
+        // var inp1=$(':input').eq(0);
+        // var inp2=$(':input').eq(1);
+        $('.bgp').hide().fadeIn(1500);
+        // $('.re-top').hide().slideDown(1000);
+        $('.re-center').hide().slideDown(1500);
+    });
+</script>
+</html>

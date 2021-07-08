@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        table{
+            width: 100%;
+            margin-bottom: 15px;
+            border-collapse: collapse;
+            table-layout: fixed;
+            text-align: center;
+            border: 3px solid #CBD6DE;
+        }
+        th,td{
+            border: 3px solid #CBD6DE;
+            padding-left: 10px;
+            line-height: 38px;
+
+        }
+        th{
+            color: #36a78a;
+        }
+        #pages{
+            text-align: center;
+            padding: 8px 0;
+        }
+        .page{
+            min-width: 50px;
+            display: inline-block;
+        }
+        .viewspotimg{
+            width: 144px;
+            height: 92px;
+            margin-left: -10px;
+            display: block;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+<div id="wrap">
+    <div id="header">
+        <div style="float: right;padding-top: 24px">
+            2021/5/25&emsp;
+            <a href="../login.html" style="color:#fff;float: right">安全退出</a>
+        </div>
+        <h1>{{name}}景点表</h1>
+    </div>
+    <div id="header-bar"></div>
+    <div id="content">
+        <table>
+            <thead>
+            <tr>
+                <th width="5%">ID</th>
+                <th width="15%">景点名</th>
+                <th width="8%">景点类型</th>
+                <th width="12%">景点位置</th>
+                <th width="8%">收藏量</th>
+                <th width="7%">级别</th>
+                <th width="41%">景点描述</th>
+                <th width="14%">图片</th>
+                <th width="10%">操作</th>
+            </tr>
+            </thead>
+            <tbody v-for="place in places">
+                <tr>
+                    <td><span v-text="place.sid"/></td>
+                    <td><span v-text="place.sname"/></td>
+                    <td><span v-text="place.lname"/></td>
+                    <td><span v-text="place.position"/></td>
+                    <td><span v-text="place.collect_counts"/></td>
+                    <td><span v-text="place.level"/></td>
+                    <td><span v-text="place.sdescription"/></td>
+                    <td><img :src="place.spicture" class="viewspotimg"></td>
+                    <td style="text-align: center">
+                        <a style="text-decoration: none;color: white;background-color: red" href="javascript:;"@click="deletePlace(place.sid)">删除</a><br>
+                        <a style="text-decoration: none;color: white;background-color: #64bcce" :href="'updateviewspot.html?id='+place.sid">修改</a>
+                    </td>
+                </tr>
+                </tr>
+            </tbody>
+        </table>
+        <a :href="'addviewspot.html?id='+id"><button style="border-radius: 3px;background-color: #36a78a;color: white" type="button">添加景点</button></a>&emsp;
+        <a href="../province/provincelist.html">返回省份列表</a>
+        <div id="pages">
+            <a href="javascript:;" v-if="page>1" class="page" @click="findAllPage(page-1)">&lt;上一页</a>
+            <span v-for="index in totalPage">
+                 <!--只有一页的时候-->
+                 <a href="javascript:;" v-if="page==index"  class="page" v-text="index"></a>
+                 <!--有不止一页的时候-->
+                 <a href="javascript:;" v-if="page!=index" @click="findAllPage(index)" class="page" v-text="index"></a>
+            </span>
+            <a href="javascript:;" class="page" v-if="page<totalPage" @click="findAllPage(page+1)">下一页&gt;</a>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
+<script src="../js/vue.js"></script>
+<script src="../js/axios.min.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            places:[],
+            id:"",
+            totalPage:0,
+            page:1,
+            name:""
+        },
+        methods:{
+            findAllPage(index){//封装查询所有的函数
+                _this = this;
+                if(index){
+                    this.page = index;
+                }
+                axios.get("http://localhost:8989/place/findAllPlace?pid="+this.id+"&page="+this.page).then((res)=>{
+                    _this.name=res.data.pname;
+                    _this.places = res.data.places;
+                    _this.totalPage = res.data.totalPage;
+                    _this.page = res.data.page;
+                });
+            },
+            deletePlace(sid){//删除景点信息
+                if(confirm("确定要删除景点吗?")){
+                    axios.get("http://localhost:8989/place/delete?id="+sid).then((res)=>{
+                        if(res.data.state){
+                            alert(res.data.msg+",点击确定刷新数据!!!");
+                            location.reload();
+                        }else{
+                            alert(res.data.msg);
+                        }
+                    });
+                }
+            }
+        },
+        created(){
+            let id = location.href.substring(location.href.indexOf("=")+1);
+            this.id = id;
+            this.findAllPage();
+        }
+    })
+</script>

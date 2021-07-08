@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        table {
+            width: 100%;
+            margin-bottom: 15px;
+            border-collapse: collapse;
+            /*table-layout: fixed;*/
+        }
+
+        th, td {
+            border: 3px solid #CBD6DE;
+            padding-left: 10px;
+            line-height: 35px;
+            text-align: center;
+        }
+
+        td a{
+            text-decoration: none;
+            color: white;
+            border-radius: 2px;
+            display: inline-block;
+            margin-right: 10px;
+            width: 100px;
+        }
+
+        #a1{
+            background-color: #ba3c38;
+        }
+        #a2{
+            background-color: #12a804;
+        }
+        #a3{
+            background-color: #7cd9ff;
+        }
+        th {
+            text-align: center;
+            color: #36a78a;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+
+        #pages {
+            text-align: center;
+            padding-top: 8px;
+        }
+
+        .page {
+            min-width: 40px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+
+    <div id="wrap">
+        <div id="header">
+            <div style="float: right;padding-top: 24px">
+                2021/5/25&emsp;
+            </div>
+            <h1>旅游景区省份管理</h1>
+        </div>
+        <div id="header-bar"></div>
+        <div id="content" style="height: 360px">
+            <h2>省份列表</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th width="20%">省份ID</th>
+                    <th width="20%">省份名</th>
+                    <th width="20%">景点个数</th>
+                    <th width="40%">数据操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="province in provinces" :key="province.id">
+                    <td v-text="province.pid"></td>
+                    <td v-text="province.pname"></td>
+                    <td v-text="province.pcounts"></td>
+                    <td>
+                        <a id="a1" href="javascript:;" @click="deleteProvince(province.pid)">删除省份</a>
+                        <a id="a2" :href="'./updateprovince.html?id='+province.pid">修改省份</a>
+                        <a id="a3" :href="'../viewspot/viewspotlist.html?id='+province.pid+'&name='+province.pname">景点列表</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <a href="addprovince.html">
+                <button style="color: #36a78a;width: 100px;height: 40px;border-radius:10px;cursor: pointer">添加省份</button>
+            </a>
+            <div id="pages">
+                <a href="javascript:;" @click="findAll(page-1)" v-if="page>1"  class="page">&lt;上一页</a>
+                <a class="page" href="javascript:;" v-for="indexpage in totalPage" @click="findAll(indexpage)" v-text="indexpage"></a>
+                <a href="javascript:;"  v-if="page<totalPage" @click="findAll(page+1)" class="page">下一页&gt;</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="../js/vue.js"></script>
+<script src="../js/axios.min.js"></script>
+<script>
+
+    const app = new Vue({
+        el: "#app",
+        data: {
+            provinces: [],
+            page: 1,
+            rows: 4,
+            totalPage: 0,
+            totals: 0,
+        },
+        methods: {
+            deleteProvince(id){
+                if(confirm("您确定要删除省份信息吗?")){
+                    axios.get("http://localhost:8989/province/delete?id="+id).then((res)=>{
+                        if(res.data.state){
+                            location.reload(true);//刷新当前页面
+                        }else{
+                            alert(res.data.msg);
+                        }
+                    });
+                }
+            },
+            findAll(indexpage) {//查询所有
+                if (indexpage) {
+                    this.page = indexpage;
+                }
+                _this = this;
+                axios.get("http://localhost:8989/province/findByPage?page=" + this.page).then((res) => {
+                    _this.provinces = res.data.provinces;
+                    _this.page = res.data.page;
+                    _this.totalPage = res.data.totalPage;
+                    _this.totals = res.data.totals;
+                });
+            }
+        },
+        created() {
+            this.findAll();
+        }
+    })
+
+</script>

@@ -1,0 +1,130 @@
+* {
+    margin: 0;
+    padding: 0px;
+}
+.head1{
+    background-color: rgba(22, 157, 211, 0.534);
+    border-radius: 5px;
+    width: 777px;
+    margin: 20px auto;
+}
+.head1 div {
+    float: left;
+    height: 100%;
+}
+.head1 .divs1 {
+    width: 160px;
+}
+.head1 .divs1 h1 {
+    color: white;
+}
+.head1 .divs2 {
+    height: 40px;
+}
+.head1 .divs2 h2 {
+    margin-top: 5px;
+    color: white;
+}
+.head1 .divs3 {
+    margin-right: 20px;
+    background-color: white;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+.head1 .divs3 select {
+    color: #e9aa37;
+    font-size: larger;
+    border: none;
+    height: 21px;
+}
+.head1 button {
+    border: none;
+    color: white;
+    cursor: pointer;
+    width: 120px;
+    height: 40px;
+    margin-left: 29px;
+    border-radius: 5px;
+    background-color: #ecb651;
+}
+.head1 button:hover {
+    background-color: #f38609;
+}
+.flow-default {
+    width: 750px;
+    height: 600px;
+    float: left;
+    margin-left: 300px;
+}
+.flow-default div {
+    width: 800px;
+    height: 210px;
+}
+.flow-default div img,
+.flow-default div div {
+    float: left;
+}
+.flow-default div div {
+    width: 420px;
+}
+.flow-default div div h1 {
+    opacity: 70%;
+    margin-bottom: 10px;
+}
+.flow-default div div span {
+    font-size: medium;
+    opacity: 50%;
+    margin-right: 40px;
+}
+.flow-default div div p {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    width: 400px;
+    height: 85px;
+    font-size: medium;
+    opacity: 80%;
+    text-overflow: ellipsis;
+}
+.flow-default div div i {
+    font-size: x-large;
+    cursor: pointer;
+}
+.flow-default div div i:hover {
+    color: #e9aa37;
+}
+.flow-default div img {
+    width: 378px;
+    height: 210px;
+}
+.spotrank {
+    border: 3px solid rgba(128, 128, 128, 0.397);
+    border-radius: 20px 20px 0px 0px;
+    width: 250px;
+    height: 400px;
+    float: left;
+    margin-left: 130px;
+    margin-top: 20px;
+    text-align: left;
+}
+.spotrank h2 {
+    border-radius: 20px 20px 0px 0px;
+    color: white;
+    background-color: #e9aa37;
+}
+.spotrank li {
+    line-height: 4em;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.445);
+    width: 230px;
+    margin: 0 auto;
+}
+.spotrank li a {
+    font-size: large;
+    font-family: cursive;
+}
+.spotrank li a:hover {
+    color: #e9aa37;
+}
+.spotrank li span {
+    font-size: large;
+    color: red;
+}

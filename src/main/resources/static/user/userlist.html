@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        table{
+            width: 100%;
+            margin-bottom: 15px;
+            border-collapse: collapse;
+            table-layout: fixed;
+            text-align: center;
+        }
+        th,td{
+            border: 3px solid #CBD6DE;
+            padding-left: 10px;
+            line-height: 40px;
+        }
+        th{
+
+            color: #36a78a;
+        }
+        tbody tr:nth-child(even){
+            background: #f2f2f2;
+        }
+        #pages{
+            text-align: center;
+            padding: 8px 0;
+        }
+        .page{
+            min-width: 50px;
+            display: inline-block;
+        }
+        .viewspotimg{
+            width: 130px;
+            height: 90px;
+            margin-left: -10px;
+            display: block;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="wrap">
+        <div id="header">
+            <div style="float: right;padding-top: 24px">
+                2021/5/25&emsp;
+                <a href="../login.html" style="color:#fff;float: right">安全退出</a>
+            </div>
+            <h1>用户信息管理</h1>
+        </div>
+        <div id="header-bar"></div>
+        <div id="content">
+            <h2>系统当前用户总人数:{{counts}}人</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th width="10%">用户ID</th>
+                    <th width="15%">用户名</th>
+                    <th width="15%">用户密码</th>
+                    <th width="15%">所在地</th>
+                    <th width="35%">喜爱景点类型</th>
+                    <th width="10%">操作</th>
+                </tr>
+                </thead>
+                <tbody v-for="user in users">
+                <tr>
+                    <td><span v-text="user.uid"/></td>
+                    <td><span v-text="user.uname"/></td>
+                    <td><input style="border: none" disabled="disabled" v-model="user.upassword" type="password"></td>
+                    <td><span v-text="user.uwhere"/></td>
+                    <td><span v-text="user.ulike"/></td>
+                    <td style="text-align: center">
+                        <a style="text-decoration: none;color: white;background-color: red" href="javascript:;"@click="deletePlace(user.uid)">注销用户</a><br>
+                    </td>
+                </tr>
+                </tr>
+                </tbody>
+            </table>
+
+            <div id="pages">
+                <a href="javascript:;" v-if="page>1" class="page" @click="findAllPage(page-1)">&lt;上一页</a>
+
+                <span v-for="index in totalPage">
+                 <!--只有一页的时候-->
+                 <a href="javascript:;" v-if="page==index"  class="page" v-text="index"></a>
+                    <!--有不止一页的时候-->
+                 <a href="javascript:;" v-if="page!=index" @click="findAllPage(index)" class="page" v-text="index"></a>
+                </span>
+
+                <a href="javascript:;" class="page" v-if="page<totalPage" @click="findAllPage(page+1)">下一页&gt;</a>
+                </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="../js/vue.js"></script>
+<script src="../js/axios.min.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            users:[],
+            totalPage:0,
+            page:1,
+            counts:0,
+        },
+        methods:{
+            findAllPage(index){//封装查询所有的函数
+                _this = this;
+                if(index){
+                    this.page = index;
+                }
+                axios.get("http://localhost:8989/user/findAllUser?page="+this.page).then((res)=>{
+                    _this.users = res.data.users;
+                    _this.totalPage = res.data.totalPage;
+                    _this.page = res.data.page;
+                    _this.counts = res.data.counts;
+                });
+            },
+            deletePlace(uid){//删除景点信息
+                if(confirm("确定要注销该用户吗?")){
+                    axios.get("http://localhost:8989/user/delete?id="+uid).then((res)=>{
+                        if(res.data.state){
+                            location.reload();
+                        }else{
+                            alert(res.data.msg);
+                        }
+                    });
+                }
+            }
+        },
+        created(){
+            this.findAllPage();
+        }
+    })
+</script>

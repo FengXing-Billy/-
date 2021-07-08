@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/userpage.css">
+    <link rel="stylesheet" href="../css/myself.css">
+    <link rel="stylesheet" href="../js/layui/css/layui.css">
+    <title>个人中心</title>
+</head>
+<body>
+<div id="app">
+    <!-- 个人中心头部 -->
+    <div class="header">
+        <!-- 湘信游 -->
+        <div class="sign">
+            <a href="userpage.html"></a>
+        </div>
+
+        <h1>个 人 中 心</h1>
+        <b><a href="userpage.html">返回首页<i class="layui-icon layui-icon-home"></i></a></b>
+    </div>
+
+    <!-- 个人信息修改区域 -->
+    <div class="update">
+        <img src="../img/tx.png" alt="">
+        <div>
+            <h2>用户名</h2><input type="text" disabled="false" v-model="user.uname">
+            <h2 style="margin-top: 10px;">密&nbsp &nbsp码</h2><input type="text" disabled="false" v-model="user.upassword">
+        </div>
+        <div>
+            <h2>所在地</h2>
+            <select v-model="user.uwhere" disabled="">
+                <option value="湖南省">湖南省</option>
+                <option value="湖北省">湖北省</option>
+            </select>
+        </div>
+        <div>
+            <h2>我喜欢</h2>
+            <input style="width: 250px; height: 50px;" type="text" disabled="" v-model="user.ulike">
+        </div>
+        <div>
+            <button onclick="fix()" style="background-color: red;">修改</button><br>
+            <button onclick="save()" @click="modifyuser" style="background-color: green;">保存</button>
+        </div>
+
+    </div>
+
+    <!-- 景点收藏区 -->
+    <div class="collect">
+        <div>
+            <h2> &nbsp我收藏的景点 (3) <i class="layui-icon layui-icon-down"></i></h2>
+        </div>
+        <div class="cdiv" v-for="collect,index in collects">
+            <img :src="collect.cpicture" alt="">
+            <h3 >{{collect.cname}}</h3>
+            <h3 style="margin-top: 50px;">{{collect.cposition}}</h3>
+            <button><i @click="deletespot(collect.sid)" class="layui-icon layui-icon-delete"></i></button>
+        </div>
+    </div>
+
+    <!-- 攻略选择区 -->
+    <div class="strategy">
+        <div class="sdivh">
+            <h2>&nbsp我选择的旅游攻略 (3) <i class="layui-icon layui-icon-down"></i></h2>
+        </div>
+        <div class="sdiv" v-for="userstrategy in userstrategys">
+            <div>
+                <h3><br><br>{{userstrategy.tname}}</h3>
+            </div>
+            <div>
+                <p><b>旅游路线:</b>{{userstrategy.tdescription}}</p>
+                <span>大概花销: <b>{{userstrategy.tcost}}</b>元</span>&nbsp &nbsp &nbsp<span>联系电话: <b>{{userstrategy.phonenumber}}</b></span>
+            </div>
+            <div>
+                <img :src="userstrategy.mymap" title="线路图">
+            </div>
+            <div>
+                <button @click="deleteMystrategy(userstrategy.tid)"><i class="layui-icon layui-icon-close"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var input1=document.getElementsByTagName("input");
+    var select1=document.getElementsByTagName("select");
+
+    // 点击修改将disabled解锁
+    function fix(){
+        for(var i=0;i<input1.length;i++){
+            input1[i].removeAttribute("disabled");
+        }
+            select1[0].removeAttribute("disabled");
+    }
+
+    //保存加上disabled的锁
+    function save(){
+        for(var i=0;i<input1.length;i++){
+            input1[i].setAttribute("disabled","disabled");
+        }
+        select1[0].setAttribute("disabled","disabled");
+    }
+</script>
+<script src="../js/axios.min.js"></script>
+<script src="../js/vue.js"></script>
+<script>
+    axios.defaults.withCredentials = true;
+    const app=new Vue({
+        el:"#app",
+        data:{
+            uid:"",
+            user:{},
+            collects:[],
+            userstrategys:[],
+        },
+        methods:{
+            deleteMystrategy(tid){
+                axios.get("http://localhost:8989/strategy/deleteMystrategy?tid="+tid+"&uid="+this.uid).then((res)=>{
+                    alert("删除成功!");
+                    location.reload();
+                });
+            },
+            deletespot(sid){
+                axios.get("http://localhost:8989/place/deletespot?sid="+sid+"&uid="+this.uid).then((res)=>{
+                    alert("删除成功!");
+                    location.reload();
+                });
+            },
+            findmyself(){
+                this.uid=localStorage.getItem("userid");
+                axios.get("http://localhost:8989/user/findOne?id="+this.uid).then((res)=>{
+                    this.user=res.data;
+                });
+            },
+            modifyuser(){
+                axios.post("http://localhost:8989/user/save",this.user).then((res)=>{
+                    alert("修改成功!");
+                }).catch(function (err) {
+                    alert("修改失败!");
+                });
+            },
+            findMycollect(){
+                axios.get("http://localhost:8989/place/collect?id="+this.uid).then((res)=>{
+                   this.collects=res.data;
+                });
+            },
+            findMystrategy(){
+                axios.get("http://localhost:8989/strategy/stracollect?id="+this.uid).then((res)=>{
+                    this.userstrategys=res.data;
+                });
+            }
+        },
+        created(){
+            this.findmyself();
+            this.findMycollect();
+            this.findMystrategy();
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        h2{
+            color: white !important;
+            background-color: #74A8F5;
+        }
+        textarea{
+            font-size: 20px;
+            font-family: 楷体;
+            border:5px solid gray;
+        }
+        button{
+            cursor: pointer;
+            border: none;
+            width: 100px;
+            height: 40px;
+            margin-left: 30px;
+            margin-right: 30px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="wrap">
+        <div id="header">
+            <div style="float: right;padding-top: 24px">2021/5/25</div>
+            <h1>公告发布</h1>
+        </div>
+        <div id="header-bar"></div>
+        <div id="content" style="height: 600px">
+            <div style="width: 330px; margin: 0 auto;text-align: center">
+                <h2>公告板</h2>
+                <textarea v-model="ptext" name="News" maxlength="45" cols="30" rows="15"></textarea>
+                <button @click="publish" style="background-color: #5ea896">发布</button><button style="background-color: orangered">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="../js/vue.js"></script>
+<script src="../js/axios.min.js"></script>
+<script>
+    axios.defaults.withCredentials = true;
+
+    const app = new Vue({
+        el: "#app",
+        data: {
+            ptext:"输入公告......",
+        },
+        methods: {
+            publish(){
+               axios.post("http://localhost:8989/publicInfo/publish?ptext="+this.ptext).then((res)=>{
+                   alert("发布成功!");
+               }).catch(function (err) {
+                   alert("发布失败!");
+               });
+            }
+        }
+    })
+</script>

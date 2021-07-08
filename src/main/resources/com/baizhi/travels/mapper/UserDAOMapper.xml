@@ -1,0 +1,53 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.baizhi.travels.dao.UserDAO">
+
+    <select id="findOne" parameterType="Integer" resultType="User">
+        select
+          *
+        from user
+        where uid=#{id}
+    </select>
+
+    <delete id="delete" parameterType="Integer">
+        delete from user where uid = #{id}
+    </delete>
+
+    <select id="findAllUserCounts"  resultType="Integer">
+        select count(*) from user
+    </select>
+
+    <select id="findAllUserPage" resultType="User">
+        select
+        uid,uname,upassword,uwhere,ulike
+        from user
+        order by uid
+        limit #{start},#{rows}
+    </select>
+
+    <!--用户登录-->
+    <select id="findByUsername" parameterType="String" resultType="User">
+        select * from user where uname = #{uname}
+    </select>
+
+    <!--用户登录-->
+    <select id="findAdmin" parameterType="String" resultType="Admin">
+        select * from admin where account = #{name}
+    </select>
+
+
+    <!--注册用户-->
+    <insert id="save" parameterType="User">
+        insert into user(uname,upassword,uwhere,ulike) values(#{uname},#{upassword},#{uwhere},#{ulike})
+    </insert>
+
+    <update id="modify" parameterType="User">
+        update user set uname=#{uname},upassword=#{upassword},uwhere=#{uwhere},ulike=#{ulike} where uid=#{uid}
+    </update>
+
+
+
+
+</mapper>
+

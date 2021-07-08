@@ -1,0 +1,51 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.baizhi.travels.dao.ProvinceDAO">
+
+    <!--分页查询所有-->
+    <select id="findByPage" resultType="Province">
+        select pid,pname,pcounts
+        from province
+        order by pid
+        limit #{start},#{rows}
+    </select>
+
+
+    <!--查询总条数-->
+    <select id="findTotals" resultType="Integer">
+        select count(pid) from province
+    </select>
+
+    <!--省份添加-->
+    <insert id="save" parameterType="Province">
+        insert into province(pname,pcounts) values(#{pname},#{pcounts})
+    </insert>
+
+    <!--省份删除-->
+    <delete id="delete" parameterType="String">
+        DELETE from province where pid = #{pid}
+    </delete>
+
+    <!--查询一个-->
+    <select id="findOne" resultType="Province">
+        select pid,pname,pcounts
+        from province
+        where pid =#{pid}
+    </select>
+
+    <!--修改省份信息方法-->
+    <update id="update" parameterType="Province">
+        update province set pname=#{pname},pcounts=#{pcounts}
+        where pid=#{pid}
+    </update>
+
+    <!--查排名-->
+    <select id="getpRank" resultType="Rank">
+       select pname,pcounts from province order by pcounts DESC
+    </select>
+    <select id="getsRank" resultType="Place">
+       select sname from spot order by collect_counts DESC
+    </select>
+</mapper>
+

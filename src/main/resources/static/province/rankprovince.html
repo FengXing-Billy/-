@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="wrap">
+        <div id="header">
+            <div style="float: right;padding-top: 24px">2021/5/25</div>
+            <h1>省份旅游热度柱状图</h1>
+        </div>
+        <div id="header-bar"></div>
+        <div id="content" style="height: 500px">
+            <div id="main" style="border: 3px solid #5ea896; width: 1200px;height:450px;margin: 0 auto;"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="../js/echarts.min.js"></script>
+<script src="../js/vue.js"></script>
+<script src="../js/axios.min.js"></script>
+<script>
+    // 使用script导入echatrs后交给vue管理
+    Vue.prototype.$echarts = echarts
+    const app = new Vue({
+        el: "#app",
+        data: {
+        },
+        methods:{
+        },
+        mounted(){
+            var myChart = this.$echarts.init(document.getElementById('main'));
+            var option = {
+                title: {
+                    text: '各省份旅游热度柱状图'
+                },
+                tooltip: {},
+                legend: {
+                    data:['热度值=省份所有景点总收藏量/该省景点数量/50']
+                },
+                xAxis: {
+                    data: [ "湖\n南\n省","河\n北\n省","山\n西\n省","辽\n宁\n省","吉\n林\n省","黑\n龙\n江\n省","江\n苏\n省","浙\n江\n省",
+                        "安\n徽\n省","福\n建\n省","江\n西\n省","山\n东\n省","河\n南\n省","湖\n北\n省","广\n东\n省","海\n南\n省",
+                        "四\n川\n省","贵\n州\n省","云\n南\n省","陕\n西\n省","甘\n肃\n省","青\n海\n省","台\n湾\n省","内\n蒙\n古\n自\n治\n区",
+                        "广\n西\n壮\n族\n自\n治\n区","西\n藏\n自\n治\n区","宁\n夏\n回\n族\n自\n治\n区","新\n疆\n维\n吾\n尔\n自\n治\n区","北\n京\n市","天\n津\n市","上\n海\n市","重\n庆\n市"]
+                },
+                yAxis: {},
+                series: [{
+                    name: '热度值=省份所有景点总收藏量/该省景点数量/50',
+                    type: 'bar',
+                    data: [86, 37, 36, 21, 32, 57, 55, 76, 42,82,85, 39, 46, 77, 80,93, 87, 76, 72,66,45, 38, 13, 44, 69, 27, 54, 67, 40,71,71, 17]
+                }]
+            };
+            myChart.setOption(option);
+        }
+    });
+    myChart.setOption(option);
+</script>

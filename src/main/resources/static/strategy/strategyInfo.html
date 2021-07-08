@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        table{
+            width: 100%;
+            margin-bottom: 15px;
+            border-collapse: collapse;
+            table-layout: fixed;
+            text-align: center;
+            border: 3px solid #CBD6DE;
+        }
+        th,td{
+            border: 3px solid #CBD6DE;
+            padding-left: 10px;
+            line-height: 38px;
+
+        }
+        th{
+            color: #36a78a;
+        }
+        .viewspotimg{
+            width: 149px;
+            height: 80px;
+            margin-left: -10px;
+            display: block;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="wrap">
+        <div id="header">
+            <div style="float: right;padding-top: 24px">
+                2021/5/25&emsp;
+                <a href="../login.html" style="color:#fff;float: right">安全退出</a>
+            </div>
+            <h1>景点攻略表</h1>
+        </div>
+        <div id="header-bar"></div>
+        <div id="content">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="5%">TID</th>
+                        <th width="13%">攻略类型</th>
+                        <th width="20%">热线电话</th>
+                        <th width="30%">攻略线路</th>
+                        <th width="10%">花销</th>
+                        <th width="10%">对应景点ID</th>
+                        <th width="12%">攻略地图</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="team in teams">
+                        <td v-text="team.tid"></td>
+                        <td v-text="team.tname"></td>
+                        <td v-text="team.phonenumber"></td>
+                        <td v-text="team.tdescription"></td>
+                        <td v-text="team.tcost"></td>
+                        <td v-text="team.sid"></td>
+                        <td><img :src="team.map" class="viewspotimg"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="../js/vue.js"></script>
+<script src="../js/axios.min.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            teams:[],
+        },
+        created(){
+            axios.get("http://localhost:8989/strategy/strinfo").then((res)=>{
+                this.teams=res.data;
+            });
+        }
+    });
+</script>

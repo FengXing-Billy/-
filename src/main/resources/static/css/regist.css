@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0px;
+}
+.bgp {
+    width: 100%;
+    height: 780px;
+    background-image: url(../img/regist.jpg);
+    background-size: 100%;
+}
+.bgp .registSection {
+    position: fixed;
+    box-shadow: 0px 0px 2px 2px #5a80d1;
+    background-color: white;
+    width: 400px;
+    height: 570px;
+    left: 38%;
+    top: 80px;
+    border-radius: 20px;
+    opacity: 91%;
+}
+.bgp .registSection .re-top {
+    background-image: url(../img/hniit.png);
+    background-size: 100% 110%;
+    height: 110px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+.bgp .registSection .re-center {
+    height: 390px;
+}
+.bgp .registSection .re-center label {
+    font-size: large;
+    margin-left: 25px;
+}
+.bgp .registSection .re-center .yan {
+    color: red;
+    margin-top: 0;
+    font-size: smaller;
+    margin-left: 122px;
+}
+.bgp .registSection .re-center #input1 {
+    width: 215px;
+    height: 30px;
+    border: 3px solid gray;
+    font-size: medium;
+    margin-left: 35px;
+    padding-left: 5px;
+    outline-color: #4343c9;
+    margin-top: 5px;
+}
+.bgp .registSection .re-center #input2 {
+    width: 215px;
+    height: 30px;
+    border: 3px solid gray;
+    font-size: medium;
+    margin-left: 37px;
+    padding-left: 5px;
+    outline-color: #4343c9;
+    margin-top: 5px;
+}
+.bgp .registSection .re-center #input3 {
+    width: 215px;
+    height: 30px;
+    border: 3px solid gray;
+    font-size: medium;
+    margin-left: 17px;
+    padding-left: 5px;
+    outline-color: #4343c9;
+    margin-top: 5px;
+}
+.bgp .registSection .re-center select {
+    width: 120px;
+    height: 35px;
+    border: 3px solid gray;
+    font-size: medium;
+    margin-left: 18px;
+    padding-left: 5px;
+    outline-color: #4343c9;
+    margin-top: 20px;
+}
+.bgp .registSection .re-center .ulikecss {
+    margin-top: 10px;
+    text-align: center;
+    margin-left: 60px;
+}
+.bgp .registSection .re-center .ulikecss input {
+    border-radius: 20px;
+    top: 20px;
+    width: 15px;
+    height: 15px;
+    margin-right: 20px;
+    margin-left: 5px;
+}
+.bgp .registSection .re-center #inputb {
+    border-radius: 2px;
+    width: 160px;
+    height: 35px;
+    display: block;
+    margin: 0 auto;
+    font-size: larger;
+    color: white;
+    background-color: #1880e0;
+    cursor: pointer;
+}
+.bgp .registSection .re-center #inputb:hover {
+    color: black;
+}
+.bgp .registSection p {
+    width: 180px;
+    height: 20px;
+    margin: 0 auto;
+    margin-top: 25px;
+    color: coral;
+}
+.bgp .registSection p a {
+    text-decoration: underline;
+    color: blue;
+}

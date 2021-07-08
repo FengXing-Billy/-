@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        form {
+            width: 270px;
+        }
+
+        input {
+            width: 70%;
+            background: #eee;
+        }
+
+        input:focus {
+            background: #fff;
+        }
+
+        form {
+            padding: 0 12px 12px;
+        }
+
+        label {
+            display: block;
+            padding-bottom: 12px;
+        }
+
+        .label-text {
+            width: 350px;
+            font-size: x-large;
+            margin-top: 20px;
+        }
+        input{
+            height: 35px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+            background-color: #ba3c38;
+            width: 90px;
+            height: 40px;
+            border-radius: 5px;
+            font-size: larger;
+            float: left;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="wrap">
+        <div id="header">
+            <div style="float: right;padding-top: 24px">2021/5/25</div>
+            <h1>省份信息管理</h1>
+        </div>
+        <div id="header-bar"></div>
+        <div id="content" style="height: 360px">
+            <img src="../img/system.png" style="float: right;height: 320px; width: 500px">
+            <h2>添加省份</h2>
+            <form action="provincelist.html" method="post">
+                <div class="label-text">
+                    省&emsp;份：
+                    <input type="text" v-model="province.pname">
+                </div>
+
+                <div class="label-text">
+                    景点数：
+                    <input type="text" v-model="province.pcounts">
+                </div>
+                <div style="margin-top: 20px">
+                    <button style="margin-right: 50px;float: left; width: 90px;height: 40px;background-color: #5ea896;border-radius: 5px;border: none" type="button" @click="saveProvinceInfo">添 加</button>&emsp;
+                    <a href="javascript:history.go(-1)">取消添加</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="../js/vue.js"></script>
+<script src="../js/axios.min.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            province:{}
+        },
+        methods:{
+            saveProvinceInfo(){
+                axios.post("http://localhost:8989/province/save",this.province).then((res)=>{
+                   if(res.data.state){
+                       alert(res.data.msg+",点击确定跳转到省份列表页面!");
+                       location.href='./provincelist.html';
+                   }else{
+                       alert(res.data.msg);
+                   }
+                });
+            }
+        }
+    });
+</script>

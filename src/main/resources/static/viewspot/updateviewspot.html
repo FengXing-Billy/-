@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        form{
+            width:270px;
+        }
+        input{
+            width: 64%;
+            background: #eee;
+        }
+        input:focus{
+            background: #fff;
+        }
+        input{
+            height: 30px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        select{
+            border-radius: 5px;
+            height: 30px;
+        }
+        form{
+            padding: 0 12px 12px;
+        }
+        label{
+            display: block;
+            padding-bottom:12px;
+        }
+        .label-text{
+            width: 36%;
+            float: left;
+        }
+        #img-show{
+            width: 135px;
+            height: 100px;
+            display: block;
+            margin: 0 auto;
+            object-fit: cover;
+        }
+    </style>
+    <script>
+        function imgfileChange() {
+            var img_show = document.getElementById("img-show");
+            var imgfile = document.getElementById("imgfile");
+
+            var freader = new FileReader();
+            freader.readAsDataURL(imgfile.files[0]);
+            freader.onload = function (e) {
+                img_show.src = e.target.result;
+            };
+        }
+    </script>
+</head>
+<body>
+<div id="app">
+    <div id="wrap">
+        <div id="header">
+            <div style="float: right;padding-top: 24px">2009/11/20</div>
+            <h1>景点信息修改</h1>
+        </div>
+        <div id="header-bar"></div>
+        <div id="content" style="height: 500px">
+            <img :src="src" style="float: right;height: 320px;width: 500px">
+            <form action="viewspotlist.html" method="post">
+                <label>
+                    <div class="label-text">景&emsp;&emsp;点：</div>
+                    <input type="text" v-model="place.sname">
+                </label>
+                <label>
+                    <div class="label-text">景点图片：</div>
+                    <div style="text-align: center;padding-left: 36%; cursor: pointer">
+                        <img :src="src" alt="" id="img-show">
+                        <input type="file" id="imgfile" ref="myFile" style="display: none" onchange="imgfileChange()">
+                    </div>
+                </label>
+                <label>
+                    <div class="label-text">景点位置：</div>
+                    <input type="text" v-model="place.position">
+                </label>
+                <label>
+                    <div class="label-text">景点类型：</div>
+                    <select v-model="place.lid">
+                        <option  v-for="(type,index) in types" :value="type.lid" v-text="type.lname"></option>
+                    </select>
+                </label>
+                <label>
+                    <div class="label-text">收藏数量：</div>
+                    <input type="text" v-model="place.collect_counts">
+                </label>
+                <label>
+                    <div class="label-text">景点级别：</div>
+                    <input type="text" v-model="place.level">
+                </label>
+                <label>
+                    <div class="label-text">景点描述：</div>
+                    <input type="text" v-model="place.sdescription">
+                </label>
+                <label>
+                    <div class="label-text">所属省份：</div>
+                    <select v-model="place.pid">
+                        <option  v-for="(pro,index) in provinces" :value="pro.pid" v-text="pro.pname"></option>
+                    </select>
+                </label>
+                <button style="width: 60px;height: 40px;color: white;background-color: #5ea896;border-radius: 5px" type="button" type="button" @click="updatePlace">提 交</button>&emsp;
+                <a :href="'viewspotlist.html?id='+ place.pid">返回</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="../js/vue.js"></script>
+<script src="../js/axios.min.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            place:{},
+            provinces:[],
+            src:"",
+            types:[]
+        },
+        methods:{
+            updatePlace(){
+                let myFile = this.$refs.myFile;
+                let files = myFile.files;
+                let file  = files[0];
+                let formData=new FormData();
+                formData.append("pic",file);
+                formData.append("sid",this.place.sid);
+                formData.append("sname",this.place.sname);
+                formData.append("position",this.place.position);
+                formData.append("lid",this.place.lid);
+                formData.append("pid",this.place.pid);
+                formData.append("collect_counts",this.place.collect_counts);
+                formData.append("level",this.place.level);
+                formData.append("sdescription",this.place.sdescription);
+                //axios
+                axios({
+                    method:'post',
+                    url:'http://localhost:8989/place/update',
+                    data:formData,
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then((res)=>{
+                    console.log(res.data);
+                    if(res.data.state){
+                        alert(res.data.msg+",点击确定回到景点列表");
+                        location.href="./viewspotlist.html?id="+this.place.pid;
+                    }else{
+                        alert(res.data.msg+",点击确定回到景点列表");
+                    }
+                });
+            },
+            findOnePlace(){//根据id查询景点信息
+                _this =this;
+                axios.get("http://localhost:8989/place/findOne?id="+this.place.sid).then((res)=>{
+                    _this.place = res.data;
+                    _this.src = _this.place.spicture;
+                });
+            },
+            findAllProvinces(){
+                _this = this;
+                axios.get("http://localhost:8989/province/findByPage?rows=35").then((res)=>{
+                    console.log(res.data.provinces);
+                    _this.provinces = res.data.provinces;
+                });
+            },
+            findAlltype(){
+                _this=this;
+                axios.get("http://localhost:8989/place/findtype").then((res)=>{
+                    _this.types = res.data;
+                });
+            },
+        },
+        created(){
+            //substring截取=号在地址中出现的位置
+            let id = location.href.substring(location.href.indexOf("=")+1);
+            this.place.sid = id;
+            this.findAlltype();
+            this.findOnePlace();
+            this.findAllProvinces();
+        }
+    })
+
+</script>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/userpage.css">
+    <link rel="stylesheet" href="../js/layui/css/layui.css">
+    <link rel="stylesheet" href="../tavel-font/iconfont.css">
+    <link rel="stylesheet" href="../css/spotstrategy.css">
+    <script src="../js/jquery/jquery-3.5.1.min.js"></script>
+    <script src="../tavel-font/iconfont.js"></script>
+    <script src="../js/vue.js"></script>
+    <title>景点和攻略</title>
+</head>
+<body>
+<div id="app">
+    <!-- 头 -->
+    <div class="header">
+        <!-- 湘信游 -->
+        <div class="sign">
+            <a href="userpage.html"></a>
+        </div>
+
+        <!-- 导航栏选择 -->
+        <ul class="hselect">
+            <li><a href="../user/userpage.html">首页</a></li>
+            <li id="provinl"><a href="#">目的省份</a><i class="layui-icon layui-icon-triangle-d"></i></li>
+            <li style="background-color: rgb(238, 175, 57);color: white;" ><a href="#">旅游攻略</a></li>
+        </ul>
+
+        <div class="provinselect">
+            <div>
+                <a href="../viewspot/spotshow.html?id=1"><span class="iconfont icon-hunansheng"></span><br>湖南省</a>
+            </div>
+            <div><a href="#"><span class="iconfont icon-hebeisheng"></span><br>河北省</a></div>
+            <div><a href="#"><span class="iconfont icon-shanxisheng"></span><br>山西省</a></div>
+            <div><a href="#"><span class="iconfont icon-liaoning"></span><br>辽宁省</a></div>
+            <div><a href="#"><span class="iconfont icon-heilongjiang"></span><br>吉林省</a> </div>
+            <div><a href="#"><span class="iconfont icon-heilongjiangsheng"></span><br>黑龙江省</a></div>
+            <div><a href="#"><span class="iconfont icon-jiangsusheng"></span><br>江苏省</a> </div>
+            <div><a href="#"><span class="iconfont icon-zhejiangsheng"></span><br>浙江省</a> </div>
+            <div><a href="#"><span class="iconfont icon-anhui"></span><br>安徽省</a> </div>
+            <div><a href="#"><span class="iconfont icon-fujiansheng"></span><br>福建省</a> </div>
+            <div><a href="#"><span class="iconfont icon-jiangxisheng"></span><br>江西省</a> </div>
+            <div><a href="#"><span class="iconfont icon-shandongsheng"></span><br>山东省</a> </div>
+            <div><a href="#"><span class="iconfont icon-henansheng"></span><br>河南省</a> </div>
+            <div><a href="#"><span class="iconfont icon-hubeisheng"></span><br>湖北省</a> </div>
+            <div><a href="#"><span class="iconfont icon-guangdongsheng"></span><br>广东省</a> </div>
+            <div><a href="#"><span class="iconfont icon-hainansheng"></span><br>海南省</a> </div>
+            <div><a href="#"><span class="iconfont icon-sichuansheng"></span><br>四川省</a> </div>
+            <div><a href="#"><span class="iconfont icon-guizhousheng"></span><br>贵州省</a> </div>
+            <div><a href="../viewspot/spotshow.html?id=19"><span class="iconfont icon-yunnansheng"></span><br>云南省</a> </div>
+            <div><a href="#"><span class="iconfont icon-shanxisheng"></span><br>陕西省</a> </div>
+            <div><a href="#"><span class="iconfont icon-gansusheng"></span><br>甘肃省</a> </div>
+            <div><a href="#"><span class="iconfont icon-qinghaisheng"></span><br>青海省</a> </div>
+            <div><a href="#"><span class="iconfont icon-taiwansheng"></span><br>台湾省</a> </div>
+            <div><a href="#"><span class="iconfont icon-neimengguzizhiqu"></span><br>内蒙古自治区</a> </div>
+            <div><a href="#"><span class="iconfont icon-guangxizizhiqu"></span><br>广西壮族自治区</a></div>
+            <div><a href="../viewspot/spotshow.html?id=26"><span class="iconfont icon-xicangzizhiqu"></span><br>西藏自治区</a></div>
+            <div><a href="#"><span class="iconfont icon-xinjiangzizhiqu"></span><br>新疆维吾尔自治区</a> </div>
+            <div><a href="#"><span class="iconfont icon-beijingshi"></span><br>北京市</a> </div>
+            <div><a href="#"><span class="iconfont icon-tianjinshi"></span><br>天津市</a> </div>
+            <div><a href="#"><span class="iconfont icon-shanghai"></span><br>上海市</a> </div>
+            <div><a href="#"><span class="iconfont icon-zhongqingshi"></span><br>重庆市</a> </div>
+        </div>
+
+        <!-- 登录注册/个人信息 -->
+        <div class="login">
+            <div class="denglu" v-if="!isuser">
+                <div class="deng1">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-QQ"></use>
+                    </svg>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-shouji"></use>
+                    </svg>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-weixin"></use>
+                    </svg>
+                </div>
+                <div class="deng2">
+                    <a href="../login.html">登录</a>
+
+                    / <a href="../regist.html"> 注册</a>
+                </div>
+            </div>
+
+            <div class="wellcome" v-if="isuser">
+                欢迎 {{user.uname}}
+                <a href="../user/myself.html"><i class="layui-icon layui-icon-username">个人中心</i></a>
+                <a href="../login.html"><i class="layui-icon layui-icon-logout">退出</i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 景点信息加图片 -->
+    <div class="leftdiv">
+        <h1>{{place.sname}}</h1>
+        <div><span><i style="color: rgb(233, 170, 55);" class="layui-icon layui-icon-location"></i>{{place.position}}</span><span>{{place.lname}}</span> <span>{{place.level}}</span></div>
+        <p>{{place.sdescription}}</p>
+        <div><span>{{place.collect_counts}}人已收藏</span><span><i title="收藏" class="layui-icon layui-icon-star" @click="collect"></i></span><span><i title="分享" class="layui-icon layui-icon-release"></i></span></div>
+        <img :src="place.spicture">
+    </div>
+
+    <!-- 攻略部分 -->
+    <div class="rightdiv">
+        <h1>攻略推荐</h1>
+        <div class="gonglue" v-for="strategy in strategys">
+            <div style="margin-bottom: 10px;"><h2>{{strategy.tname}} &nbsp &nbsp 热线电话:{{strategy.phonenumber}}</h2><span title="添加到我的攻略"><i @click="strategyCollect(strategy.tid)" class="layui-icon layui-icon-add-circle"></i></span></div>
+            <div style="float: left;">
+                <p>{{strategy.tdescription}}</p>
+                <h2>￥{{strategy.tcost}}起</h2>
+            </div>
+            <img :src="strategy.map" alt="线路图">
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../js/axios.min.js"></script>
+<script>
+    const app=new Vue({
+        el:"#app",
+        data:{
+            user:{},
+            isuser:true,
+            place:{},
+            strategys:[]
+        },
+        methods:{
+            strategyCollect(id){
+                axios.post("http://localhost:8989/strategy/addstrategy?id="+this.user.uid+"&tid="+id).then((res)=>{
+                    alert(res.data.msg);
+                }).catch(function (err) {
+                    alert("攻略收藏失败");
+                });
+            },
+            collect(){
+                axios.post("http://localhost:8989/place/collect?id="+this.user.uid+"&sname="+this.place.sname).then((res)=>{
+                    alert(res.data.msg);
+                }).catch(function (err) {
+                    alert("收藏失败");
+                });
+            },
+            finduser(){
+                axios.get("http://localhost:8989/user/findOne?id="+localStorage.getItem("userid")).then((res)=>{
+                    this.user=res.data;
+                });
+            },
+            spotAndstrategy(id){
+                axios.get("http://localhost:8989/place/spotandstrategy?id="+id).then((res)=>{
+                    this.place=res.data.spot;
+                    this.strategys=res.data.strategy;
+                    console.log(this.place);
+                    console.log(this.strategys);
+                });
+            }
+        },
+        created() {
+            let sid = location.href.substring(location.href.indexOf("=") + 1);
+            //使用户还是游客
+            if (localStorage.getItem("userid") == null) {
+                this.isuser = !this.isuser;
+                alert("访问景点及其攻略请先登录!");
+                location.href="../login.html"
+            } else {
+                this.finduser();
+            }
+            this.spotAndstrategy(sid);
+        }
+    })
+</script>
+
+<!-- jquery动画样式 -->
+<script>
+    $(function(){
+        let pl=$('.provinselect');
+        pl.hide();
+        $('#provinl').mouseover(function(){
+            pl.slideDown(500);
+        });
+
+        pl.mousemove(function(){
+            pl.show();
+        });
+        pl.mouseleave(function(){
+            pl.fadeOut(500);
+        });
+    });
+</script>
+</html>

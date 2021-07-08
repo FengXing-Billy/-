@@ -1,0 +1,189 @@
+@font-face {
+  font-family: "iconfont"; /* Project id  */
+  src: url('iconfont.ttf?t=1620663269110') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-guizhousheng:before {
+  content: "\e602";
+}
+
+.icon-qinghaisheng:before {
+  content: "\e603";
+}
+
+.icon-hebeisheng:before {
+  content: "\e604";
+}
+
+.icon-shanxisheng:before {
+  content: "\e605";
+}
+
+.icon-hubeisheng:before {
+  content: "\e606";
+}
+
+.icon-liaoning:before {
+  content: "\e608";
+}
+
+.icon-heilongjiang:before {
+  content: "\e609";
+}
+
+.icon-taiwansheng:before {
+  content: "\e613";
+}
+
+.icon-hainansheng:before {
+  content: "\e62c";
+}
+
+.icon-henansheng:before {
+  content: "\e62d";
+}
+
+.icon-guizhousheng1:before {
+  content: "\e62e";
+}
+
+.icon-gansusheng:before {
+  content: "\e62f";
+}
+
+.icon-guangxizizhiqu:before {
+  content: "\e630";
+}
+
+.icon-hubeisheng1:before {
+  content: "\e631";
+}
+
+.icon-hunansheng:before {
+  content: "\e632";
+}
+
+.icon-jiangxisheng:before {
+  content: "\e633";
+}
+
+.icon-qinghaisheng1:before {
+  content: "\e634";
+}
+
+.icon-shanxisheng1:before {
+  content: "\e635";
+}
+
+.icon-zhejiangsheng:before {
+  content: "\e636";
+}
+
+.icon-yunnansheng:before {
+  content: "\e637";
+}
+
+.icon-taiwansheng1:before {
+  content: "\e638";
+}
+
+.icon-xicangzizhiqu:before {
+  content: "\e639";
+}
+
+.icon-jiangsusheng:before {
+  content: "\e63a";
+}
+
+.icon-xinjiangzizhiqu:before {
+  content: "\e63b";
+}
+
+.icon-beijingshi:before {
+  content: "\e63c";
+}
+
+.icon-guangdongsheng:before {
+  content: "\e63d";
+}
+
+.icon-zhongqingshi:before {
+  content: "\e63e";
+}
+
+.icon-fujiansheng:before {
+  content: "\e63f";
+}
+
+.icon-sichuansheng:before {
+  content: "\e640";
+}
+
+.icon-shandongsheng:before {
+  content: "\e641";
+}
+
+.icon-neimengguzizhiqu:before {
+  content: "\e642";
+}
+
+.icon-tianjinshi:before {
+  content: "\e643";
+}
+
+.icon-shanxisheng2:before {
+  content: "\e644";
+}
+
+.icon-hebeisheng1:before {
+  content: "\e645";
+}
+
+.icon-heilongjiangsheng:before {
+  content: "\e646";
+}
+
+.icon-jilinsheng:before {
+  content: "\e647";
+}
+
+.icon-liaoningsheng:before {
+  content: "\e648";
+}
+
+.icon-shandongsheng1:before {
+  content: "\e649";
+}
+
+.icon-weixin:before {
+  content: "\e665";
+}
+
+.icon-QQ:before {
+  content: "\e667";
+}
+
+.icon-shouji:before {
+  content: "\e614";
+}
+
+.icon-baidu:before {
+  content: "\e612";
+}
+
+.icon-anhui:before {
+  content: "\e669";
+}
+
+.icon-shanghai:before {
+  content: "\e66c";
+}
+

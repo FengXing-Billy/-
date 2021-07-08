@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            /*table-layout: fixed;*/
+            margin-top: 5px;
+        }
+        th, td {
+            border: 3px solid #CBD6DE;
+            line-height: 25px;
+            text-align: center;
+        }
+        #content div{
+            float: left;
+        }
+        #content div span{
+            font-size: large;
+            background-color: #36a78a;
+            color: white;
+        }
+        .rankleft{
+            width: 500px;
+            margin-left: 120px;
+        }
+
+        .rankright{
+            width: 400px;
+            margin-left: 50px;
+        }
+        th {
+            text-align: center;
+            color: #36a78a;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="wrap">
+        <div id="header">
+            <div style="float: right;padding-top: 24px">2021/5/25</div>
+            <h1>景点热度排名</h1>
+        </div>
+        <div id="header-bar"></div>
+        <div id="content" style="height: 1000px">
+            <!--左省份景点资源总数和总收藏量-->
+            <div class="rankleft">
+                <span>省份景点资源排名全</span> &nbsp <span>全国所有省份总景点数:</span> <span style="color: white;background-color: red">{{sum}}</span>
+                <table>
+                    <thead>
+                    <tr>
+                        <th width="30%">排名</th>
+                        <th width="35%">省份名</th>
+                        <th width="35%">景点总数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="prank,index in pranks">
+                        <td v-text="index+1"></td>
+                        <td v-text="prank.pname"></td>
+                        <td v-text="prank.pcounts"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!--全国热度排名前二十的景点-->
+            <div class="rankright">
+                <span>全国热度排名前二十的景点</span>
+                <table>
+                    <thead>
+                    <tr>
+                        <th width="25%">排名</th>
+                        <th width="75%">景点</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="srank,index in sranks">
+                        <td v-text="index+1"></td>
+                        <td v-text="srank.sname"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="../js/vue.js"></script>
+<script src="../js/axios.min.js"></script>
+<script>
+    // 使用script导入echatrs后交给vue管理
+    const app = new Vue({
+        el: "#app",
+        data: {
+            pranks:[],
+            sranks:[],
+            sum:0,
+        },
+        created(){
+            axios.get("http://localhost:8989/province/rank").then((res)=>{
+                this.pranks=res.data.prank;
+                this.sranks=res.data.srank;
+
+                for(var i=0;i<this.pranks.length;i++){
+                    this.sum=this.sum+this.pranks[i].pcounts;
+                }
+            });
+        }
+    });
+</script>

@@ -1,0 +1,29 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.baizhi.travels.dao.StrategyDAO">
+    <select id="findAll"  resultType="Team">
+        select * from team
+    </select>
+
+    <select id="getUserStrategy"  resultType="UserStrategy">
+        select uid,tid,tname,tcost,tdescription,phonenumber,mymap
+        from strategy
+        where uid=#{id}
+    </select>
+
+    <select id="findUserStrategy"  resultType="UserStrategy">
+        select * from strategy where uid=#{id} and tid=#{tid}
+    </select>
+
+    <!--删除收藏的景点信息方法-->
+    <delete id="deleteMystrategy" parameterType="String">
+        delete from strategy where tid = #{tid} and uid=#{uid}
+    </delete>
+
+    <insert id="strategyAdd">
+        INSERT into
+        strategy(uid,tid,tname,tcost,tdescription,phonenumber,mymap)
+        select uid,tid,tname,tcost,tdescription,phonenumber,map
+        from team,user where uid=#{id} and tid=#{tid}
+    </insert>
+</mapper>

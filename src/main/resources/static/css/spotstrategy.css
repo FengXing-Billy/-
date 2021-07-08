@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.leftdiv,
+.rightdiv {
+    float: left;
+    margin-top: 20px;
+}
+.leftdiv {
+    width: 680px;
+    margin-left: 190px;
+}
+.leftdiv img {
+    margin-top: 10px;
+    height: 380px;
+    width: 100%;
+}
+.leftdiv span {
+    font-size: larger;
+    opacity: 80%;
+}
+.leftdiv p {
+    margin-top: 20px;
+    font-size: large;
+    height: 90px;
+    width: 550px;
+}
+.leftdiv h1 {
+    position: absolute;
+}
+.leftdiv div {
+    text-align: right;
+}
+.leftdiv div span {
+    margin-left: 30px;
+    cursor: pointer;
+}
+.leftdiv div i {
+    color: #e9aa37;
+    font-size: xx-large;
+}
+.rightdiv {
+    width: 550px;
+    margin-left: 50px;
+}
+.rightdiv h1 {
+    color: white;
+    background-color: rgba(128, 128, 128, 0.473);
+    margin-bottom: 10px;
+}
+.rightdiv .gonglue {
+    width: 550px;
+    height: 220px;
+    margin-bottom: 30px;
+}
+.rightdiv .gonglue h2 {
+    display: inline-block;
+    color: #e9aa37;
+}
+.rightdiv .gonglue span {
+    cursor: pointer;
+    color: gray;
+    float: right;
+}
+.rightdiv .gonglue span i {
+    font-size: xx-large;
+}
+.rightdiv .gonglue span:hover {
+    color: #e9aa37;
+}
+.rightdiv .gonglue h3 {
+    color: #e9aa37;
+}
+.rightdiv .gonglue p {
+    font-size: medium;
+    width: 260px;
+    height: 155px;
+    margin-right: 10px;
+}
+.rightdiv .gonglue img {
+    float: left;
+    width: 280px;
+    height: 179px;
+}

@@ -1,0 +1,148 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.baizhi.travels.dao.PlaceDAO">
+
+    <!--根据省份id查询所有景点信息并排序-->
+
+    <select id="findByProvinceIdPage" resultType="Place">
+        select
+        sid,sname,position,collect_counts,level,sdescription,spicture,lname
+        from spot,type
+        where spot.pid = #{provinceId} and spot.lid=type.lid
+        order by sid
+        limit #{start},#{rows}
+    </select>
+
+    <!--根据省份id查询当前省份所有景点个数-->
+    <select id="findByProvinceIdCounts" parameterType="String" resultType="Integer">
+        select count(pid) from  spot where pid=#{provinceId}
+    </select>
+
+
+    <!--保存place-->
+    <insert id="save" parameterType="Place" >
+        insert into spot(sname,position,lid,pid,collect_counts,level,sdescription,spicture) values (#{sname},#{position},#{lid},#{pid},#{collect_counts},#{level},#{sdescription},#{spicture})
+    </insert>
+
+
+    <!--根据id查询景点信息-->
+    <select id="findOne" parameterType="String" resultType="Place">
+        select
+          sid,	sname,	position,	pid,	collect_counts,	level,	sdescription,spicture,lname
+        from spot,type
+        where sid=#{id} and spot.lid=type.lid
+    </select>
+
+    <select id="findTeam" parameterType="String" resultType="Team">
+        select
+          *
+        from team
+        where sid=#{id}
+    </select>
+
+    <select id="findOneByname" parameterType="String" resultType="Place">
+        select
+          *
+        from spot
+        where sname=#{sname}
+    </select>
+
+    <!--删除景点信息方法-->
+    <delete id="delete" parameterType="String">
+        delete from spot where sid = #{id}
+    </delete>
+
+    <!--删除收藏的景点信息方法-->
+    <delete id="deletespot" parameterType="String">
+        delete from mcollection where sid = #{sid} and uid=#{uid}
+    </delete>
+
+    <!--修改经典信息-->
+    <update  id="update" parameterType="Place">
+        update spot set
+            sname=#{sname},
+            position=#{position},
+            lid=#{lid},
+            pid=#{pid},
+            collect_counts=#{collect_counts},
+            level=#{level},
+            sdescription=#{sdescription}
+            <if test="spicture!=null">
+            ,spicture=#{spicture}
+            </if>
+        where sid = #{sid}
+    </update>
+
+    <!--根据id查询景点信息-->
+    <select id="findtypes"  resultType="Type">
+        select * from type
+    </select>
+
+    <!--根据id查询景点信息-->
+    <select id="findProvince"  resultType="String">
+        select pname from province where pid=#{pid}
+    </select>
+
+    <select id="findPlaceByUlike"  resultType="Place">
+        SELECT * from
+        spot,type where
+        (type.lname=#{param1} or
+        type.lname=#{param2} or
+        type.lname=#{param3} or
+        type.lname=#{param4}) and
+        type.lid=spot.lid
+        order by collect_counts DESC
+        limit 4
+    </select>
+
+    <select id="findRankAll"  resultType="Place">
+        select sname,level,sdescription,spicture,pname from spot,province where spot.pid=province.pid order by collect_counts DESC limit 4
+    </select>
+
+    <!--根据sname查询景点信息-->
+    <select id="findCollection"  resultType="UserCollection">
+        select * from mcollection where cname=#{fcname} and uid=#{fcid}
+    </select>
+
+
+    <insert id="collectspot">
+        INSERT into mcollection(uid,sid,cname,cposition,cpicture)  select uid,sid,sname,position,spicture from spot,user where sname=#{csname} and uid=#{csid}
+    </insert>
+
+    <!--根据id查询收藏信息-->
+    <select id="findcollect"  resultType="UserCollection">
+        select * from mcollection where  uid=#{fcid}
+    </select>
+
+    <!--根据id查询收藏信息-->
+    <select id="findAllSpot"  resultType="Place">
+        select sid,sname,position,collect_counts,level,sdescription,spicture,lname
+        from spot,type where pid=#{id} and spot.lid=type.lid
+    </select>
+
+    <select id="findSpotCounts"  resultType="Integer">
+        select count(*) from spot where pid=#{id}
+    </select>
+
+    <select id="findRankFive"  resultType="Place">
+        select * from spot where pid=#{pid} order by collect_counts DESC limit 5
+    </select>
+
+    <select id="findRequireCounts"  resultType="Integer">
+        select count(*) from spot where pid=#{pid} and lid=#{lid}
+    </select>
+
+    <select id="findRequireAESC"  resultType="Place">
+        select sid,sname,position,lname,sdescription,spicture,collect_counts from spot,type where pid=#{pid} and type.lid=#{lid} and spot.lid=#{lid} order by collect_counts
+    </select>
+
+    <select id="findRequireDESC"  resultType="Place">
+        select sid,sname,position,lname,sdescription,spicture,collect_counts from spot,type where pid=#{pid} and type.lid=#{lid} and spot.lid=#{lid} order by collect_counts DESC
+    </select>
+
+    <select id="findSnames"  resultType="Place">
+        select * from spot where sname like '%${sname}%'
+    </select>
+</mapper>
+

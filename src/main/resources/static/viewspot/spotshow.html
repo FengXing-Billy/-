@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/userpage.css">
+    <link rel="stylesheet" href="../js/layui/css/layui.css">
+    <link rel="stylesheet" href="../tavel-font/iconfont.css">
+    <link rel="stylesheet" href="../css/spotshow.css">
+    <script src="../js/jquery/jquery-3.5.1.min.js"></script>
+    <script src="../tavel-font/iconfont.js"></script>
+    <script src="../js/vue.js"></script>
+    <title>省份景点</title>
+</head>
+<body>
+<div id="app">
+    <button @click="scrollback" style="position:fixed;top: 83px;width: 100px;height: 50px;border-radius: 10px;background-color: rgb(233, 170, 55);color: white;border: none;cursor:pointer;">回到顶部<i class="layui-icon layui-icon-up"></i></button>
+
+    <!-- 头 -->
+    <div class="header">
+        <!-- 湘信游 -->
+        <div class="sign">
+            <a href="userpage.html"></a>
+        </div>
+
+        <!-- 导航栏选择 -->
+        <ul class="hselect">
+            <li><a href="../user/userpage.html">首页</a></li>
+            <li style="background-color: rgb(238, 175, 57);color: white;" id="provinl"><a style="color: white;" href="#">目的省份</a><i class="layui-icon layui-icon-triangle-d"></i></li>
+            <li><a href="#">旅游攻略</a></li>
+        </ul>
+
+        <div class="provinselect">
+            <div>
+                <a href="../viewspot/spotshow.html?id=1"><span class="iconfont icon-hunansheng"></span><br>湖南省</a>
+            </div>
+            <div><a href="#"><span class="iconfont icon-hebeisheng"></span><br>河北省</a></div>
+            <div><a href="#"><span class="iconfont icon-shanxisheng"></span><br>山西省</a></div>
+            <div><a href="#"><span class="iconfont icon-liaoning"></span><br>辽宁省</a></div>
+            <div><a href="#"><span class="iconfont icon-heilongjiang"></span><br>吉林省</a> </div>
+            <div><a href="#"><span class="iconfont icon-heilongjiangsheng"></span><br>黑龙江省</a></div>
+            <div><a href="#"><span class="iconfont icon-jiangsusheng"></span><br>江苏省</a> </div>
+            <div><a href="#"><span class="iconfont icon-zhejiangsheng"></span><br>浙江省</a> </div>
+            <div><a href="#"><span class="iconfont icon-anhui"></span><br>安徽省</a> </div>
+            <div><a href="#"><span class="iconfont icon-fujiansheng"></span><br>福建省</a> </div>
+            <div><a href="#"><span class="iconfont icon-jiangxisheng"></span><br>江西省</a> </div>
+            <div><a href="#"><span class="iconfont icon-shandongsheng"></span><br>山东省</a> </div>
+            <div><a href="#"><span class="iconfont icon-henansheng"></span><br>河南省</a> </div>
+            <div><a href="#"><span class="iconfont icon-hubeisheng"></span><br>湖北省</a> </div>
+            <div><a href="#"><span class="iconfont icon-guangdongsheng"></span><br>广东省</a> </div>
+            <div><a href="#"><span class="iconfont icon-hainansheng"></span><br>海南省</a> </div>
+            <div><a href="#"><span class="iconfont icon-sichuansheng"></span><br>四川省</a> </div>
+            <div><a href="#"><span class="iconfont icon-guizhousheng"></span><br>贵州省</a> </div>
+            <div><a href="../viewspot/spotshow.html?id=19"><span class="iconfont icon-yunnansheng"></span><br>云南省</a> </div>
+            <div><a href="#"><span class="iconfont icon-shanxisheng"></span><br>陕西省</a> </div>
+            <div><a href="#"><span class="iconfont icon-gansusheng"></span><br>甘肃省</a> </div>
+            <div><a href="#"><span class="iconfont icon-qinghaisheng"></span><br>青海省</a> </div>
+            <div><a href="#"><span class="iconfont icon-taiwansheng"></span><br>台湾省</a> </div>
+            <div><a href="#"><span class="iconfont icon-neimengguzizhiqu"></span><br>内蒙古自治区</a> </div>
+            <div><a href="#"><span class="iconfont icon-guangxizizhiqu"></span><br>广西壮族自治区</a></div>
+            <div><a href="../viewspot/spotshow.html?id=26"><span class="iconfont icon-xicangzizhiqu"></span><br>西藏自治区</a></div>
+            <div><a href="#"><span class="iconfont icon-xinjiangzizhiqu"></span><br>新疆维吾尔自治区</a> </div>
+            <div><a href="#"><span class="iconfont icon-beijingshi"></span><br>北京市</a> </div>
+            <div><a href="#"><span class="iconfont icon-tianjinshi"></span><br>天津市</a> </div>
+            <div><a href="#"><span class="iconfont icon-shanghai"></span><br>上海市</a> </div>
+            <div><a href="#"><span class="iconfont icon-zhongqingshi"></span><br>重庆市</a> </div>
+        </div>
+
+        <!-- 登录注册/个人信息 -->
+        <div class="login">
+            <div class="denglu" v-if="!isuser">
+                <div class="deng1">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-QQ"></use>
+                    </svg>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-shouji"></use>
+                    </svg>
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-weixin"></use>
+                    </svg>
+                </div>
+                <div class="deng2">
+                    <a href="../login.html">登录</a>
+
+                    / <a href="../regist.html"> 注册</a>
+                </div>
+            </div>
+
+            <div class="wellcome" v-if="isuser">
+                欢迎 {{user.uname}}
+                <a href="../user/myself.html"><i class="layui-icon layui-icon-username">个人中心</i></a>
+                <a href="../login.html"><i class="layui-icon layui-icon-logout">退出</i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="head1">
+        <div class="divs1">
+            <h1>{{pname}}</h1>
+        </div>
+        <div class="divs2">
+            <h2>景点类型</h2>
+        </div>
+        <div class="divs3">
+            <select v-model="lid">
+                <option value="1" >自然景区</option>
+                <option value="2" >文化景区</option>
+                <option value="3" >历史景区</option>
+                <option value="4" >娱乐景区</option>
+            </select>
+        </div>
+
+        <div class="divs2">
+            <h2>景点收藏量</h2>
+        </div>
+        <div class="divs3">
+            <select v-model="updown">
+                <option value="1">收藏量从小到大</option>
+                <option value="2">收藏量从大到小</option>
+            </select>
+        </div>
+
+        <button @click="findByRequirement">查询</button>
+    </div>
+
+    <div class="flow-default" id="LAY_demo1"></div>
+
+    <div class="spotrank">
+        <h2>{{pname}}近期热门景点</h2>
+        <ul>
+            <li v-for="rankspot,index in rankspots"><span>{{index+1}}</span>&nbsp;<a :href="'../strategy/spotstrategy.html?sid='+rankspot.sid">{{rankspot.sname}}</a></li>
+        </ul>
+    </div>
+</div>
+</body>
+<script src="../js/layui/layui.js"></script>
+<script src="../js/axios.min.js"></script>
+
+<!-- Vue发请求 -->
+<script>
+    function collect(id,name){
+        if(id!=""){
+            axios.post("http://localhost:8989/place/collect?id="+id+"&sname="+name).then((res)=>{
+                alert(res.data.msg);
+            }).catch(function (err) {
+                alert("收藏失败");
+            });
+        }else{
+            alert("若想收藏请登录!");
+        }
+
+    }
+
+    const app=new Vue({
+        el:"#app",
+        data:{
+            pname:"",
+            places:[],
+            scounts:0,
+            id:"",
+            pid:"",
+            user:{},
+            isuser:true,
+            rankspots:[],
+            lid:"",
+            updown:"",
+        },
+        methods:{
+            async findByRequirement(){
+                if(this.lid==""||this.down==""){
+                    alert("景点类型或者排序条件为空");
+                }else{
+                    await axios.get("http://localhost:8989/place/require?pid="+this.pid+"&lid="+this.lid+"&updown="+this.updown).then((res)=>{
+                        // 先清空之前流加载的东西
+                        $("#LAY_demo1").html('');
+                        this.places=res.data.requirespot;
+                        this.scounts= res.data.requirecounts;
+                        //再调用流加载器加载现在返回来的数据
+                        this.flowin();
+                    });
+
+                }
+            },
+            finduser(){
+                axios.get("http://localhost:8989/user/findOne?id="+localStorage.getItem("userid")).then((res)=>{
+                    this.user=res.data;
+                });
+            },
+            scrollback(){
+                document.body.scrollTop = document.documentElement.scrollTop = 0;
+                this.back=false;
+            },
+            async findAllPlace(pid) {
+                await axios.get("http://localhost:8989/place/findAllSpot?pid="+pid).then((res) => {
+                    this.pname = res.data.pname;
+                    this.places = res.data.spots;
+                    this.scounts = res.data.scounts;
+                    this.rankspots=res.data.rankspots;
+                });
+            },
+            async flowin(){
+                // 拿到景点个数和景点集合
+                var counts = this.scounts;
+                var place = this.places;
+                var uid=localStorage.getItem("userid");
+                layui.use('flow', function () {
+                    var flow = layui.flow;
+                    var i = 0;
+                    var j = 3;
+                    //如果返回来的景点只有一个但强行执行三次循环的话就会报错，place数组没那么长，
+                    // 所以景点数小于三的话就让j等于这个数
+                    if(counts<3){
+                        j=counts;
+                    }
+                    flow.load({
+                        elem: '#LAY_demo1'
+                        , done: function (page, next) { //执行下一页的回调
+                            //模拟数据插入
+                            setTimeout(function () {
+                                var lis = [];
+                                for (; i < j; i++) {
+                                    lis.push(
+                                        '<div style="margin-bottom:30px;"><div>' +
+                                        '<h1><a href="../strategy/spotstrategy.html?sid='+(place[i].sid)+'">'+(place[i].sname)+'</a></h1>' +
+                                        '<span><i style="color: rgb(233, 170, 55);" class="layui-icon layui-icon-location"></i>'+(place[i].position)+'</span><span>'+(place[i].lname)+'</span>' +
+                                        '<p>'+(place[i].sdescription)+'</p>' +
+                                        '<span style="opacity: 50%;">'+(place[i].collect_counts)+'人已收藏</span>' +
+                                        '<i style="margin-left: 150px;" class="layui-icon layui-icon-star" onclick="collect('+(uid)+',\''+(place[i].sname)+'\')"></i><i style="margin-left: 20px;" class="layui-icon layui-icon-release"></i>' +
+                                        '</div><img src='+(place[i].spicture)+'></div>');
+                                }
+                                j = j + 3;
+                                if (j > counts) {
+                                    j = counts;
+                                }
+                                //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                                //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                                next(lis.join(''), page < counts / 3 + 1); //假设总页数为 4
+                            }, 500);
+                        }
+                    });
+                });
+
+            }
+        },
+        async created() {
+            //使用户还是游客
+            if(localStorage.getItem("userid")==null){
+                this.isuser=!this.isuser;
+            }else{
+                this.finduser();
+            }
+            //发同步请求获取景点,不然或掉函数会在mounted后面执行
+            this.pid = location.href.substring(location.href.indexOf("=") + 1);
+            await this.findAllPlace(this.pid);
+            this.flowin();
+        }
+    })
+</script>
+
+<!-- jquery动画样式 -->
+<script>
+    $(function(){
+        let pl=$('.provinselect');
+        pl.hide();
+        $('#provinl').mouseover(function(){
+            pl.slideDown(500);
+        });
+
+        pl.mousemove(function(){
+            pl.show();
+        });
+        pl.mouseleave(function(){
+            pl.fadeOut(500);
+        });
+    });
+</script>
+</html>
